@@ -1,2 +1,2 @@
-export { default as RnFaceAuthView } from './RnFaceAuthViewNativeComponent';
-export * from './RnFaceAuthViewNativeComponent';
+export { default as FaceAuth } from './FaceAuthNativeComponent';
+export * from './FaceAuthNativeComponent';
