@@ -14,11 +14,11 @@ npm install rn-face-auth
 
 
 ```js
-import { RnFaceAuthView } from "rn-face-auth";
+import { FaceAuth } from "rn-face-auth";
 
 // ...
 
-<RnFaceAuthView color="tomato" />
+<FaceAuth color="tomato" />
 ```
 
 

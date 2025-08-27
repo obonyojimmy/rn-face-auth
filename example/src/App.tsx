@@ -1,10 +1,26 @@
-import { View, StyleSheet } from 'react-native';
-import { RnFaceAuthView } from 'rn-face-auth';
+import { useEffect, useState } from 'react';
+import { Platform, PermissionsAndroid, View, StyleSheet } from 'react-native';
+import { FaceAuth } from 'rn-face-auth';
 
 export default function App() {
+  const [granted, setGranted] = useState(false);
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA).then(
+        (res) => {
+          if (res === PermissionsAndroid.RESULTS.GRANTED) {
+            setGranted(true);
+          }
+        }
+      );
+    } else {
+      setGranted(true);
+    }
+  }, []);
   return (
     <View style={styles.container}>
-      <RnFaceAuthView color="#32a852" style={styles.box} />
+      {granted && <FaceAuth style={styles.box} />}
     </View>
   );
 }
@@ -16,8 +32,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   box: {
-    width: 60,
-    height: 60,
+    width: 400,
+    height: 600,
     marginVertical: 20,
   },
 });
