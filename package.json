@@ -1,7 +1,7 @@
 {
   "name": "rn-face-auth",
   "version": "0.1.0",
-  "description": "rn-face-auth is a React Native package that provides an easy-to-use face authentication component with built-in face detection, liveness cues, and anti-spoof detection.",
+  "description": "a React Native package that provides an easy-to-use face authentication component with built-in face detection, liveness cues, and anti-spoof detection.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
@@ -32,7 +32,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-rn-face-auth-example",
+    "example": "yarn workspace rn-face-auth-example",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -149,7 +149,7 @@
     ]
   },
   "codegenConfig": {
-    "name": "RnFaceAuthSpec",
+    "name": "RnFaceAuthViewSpec",
     "type": "all",
     "jsSrcsDir": "src",
     "android": {
@@ -157,7 +157,7 @@
     },
     "ios": {
       "componentProvider": {
-        "RnFaceAuth": "RnFaceAuth"
+        "RnFaceAuthView": "RnFaceAuthView"
       }
     }
   },

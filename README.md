@@ -1,12 +1,12 @@
-# react-native-rn-face-auth
+# rn-face-auth
 
-rn-face-auth is a React Native package that provides an easy-to-use face authentication component with built-in face detection, liveness cues, and anti-spoof detection.
+a React Native package that provides an easy-to-use face authentication component with built-in face detection, liveness cues, and anti-spoof detection.
 
 ## Installation
 
 
 ```sh
-npm install react-native-rn-face-auth
+npm install rn-face-auth
 ```
 
 
@@ -14,7 +14,7 @@ npm install react-native-rn-face-auth
 
 
 ```js
-import { RnFaceAuthView } from "react-native-rn-face-auth";
+import { RnFaceAuthView } from "rn-face-auth";
 
 // ...
 
