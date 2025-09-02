@@ -1,6 +1,7 @@
 ## React Native:
 
 - [New Architecture](https://github.com/reactwg/react-native-new-architecture/discussions/27)
+- inspires from [react-native-camera-kit](https://github.com/teslamotors/react-native-camera-kit)
 
 ## Android
 

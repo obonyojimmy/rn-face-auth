@@ -26,7 +26,7 @@ export default function App() {
         <FaceAuth
           style={styles.box}
           onSuccess={(event: FaceAuthSuccessEvent) => {
-            console.log('Face recognized with data:', event);
+            console.log('Face recognized with data:', event?.nativeEvent);
           }}
         />
       )}

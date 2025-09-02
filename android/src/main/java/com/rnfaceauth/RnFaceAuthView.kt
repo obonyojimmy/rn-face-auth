@@ -30,7 +30,10 @@ class RnFaceAuthView(context: Context) : FrameLayout(context), SurfaceHolder.Cal
     private var previewSize: android.util.Size? = null
     private var sensorOrientation: Int = 0
     private var adjustedRotation: Int = 0
+    private var width: Int = 0; 
+    private var height: Int = 0
     private var faceDetector: FaceDetector? = null
+    private val faceOverlay = FaceOverlayView(context)
 
     //private val executor = Executors.newSingleThreadExecutor()
 
@@ -39,7 +42,20 @@ class RnFaceAuthView(context: Context) : FrameLayout(context), SurfaceHolder.Cal
             surfaceView,
             LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         )
+        addView(
+            faceOverlay,
+            LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        )
         surfaceView.holder.addCallback(this)
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        width = right - left
+        height = bottom - top
+
+        // Reconfigure preview to best match this width/height
+        //setupCamera(width, height)
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -179,7 +195,15 @@ class RnFaceAuthView(context: Context) : FrameLayout(context), SurfaceHolder.Cal
         faceDetector!!.process(inputImage)
             .addOnSuccessListener { faces ->
                 Log.d("MLKit", "Faces detected: ${faces.size}")
-                /* if (faces.isNotEmpty()) {
+                faceOverlay.updateFaces(
+                    faces,
+                    previewSize!!.width,
+                    previewSize!!.height,
+                    width,  // view width
+                    height  // view height
+                )
+
+                if (faces.isNotEmpty()) {
                     val face = faces[0] // first detected face
                     val reactContext = context as ReactContext
                     reactContext
@@ -188,7 +212,7 @@ class RnFaceAuthView(context: Context) : FrameLayout(context), SurfaceHolder.Cal
                             com.facebook.react.bridge.Arguments.createMap().apply {
                                 putString("faceData", "Face detected at ${face.boundingBox}")
                             })
-                } else {
+                } /*else {
                     val reactContext = context as ReactContext
                     reactContext
                         .getJSModule(RCTEventEmitter::class.java)
