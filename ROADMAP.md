@@ -1,9 +1,9 @@
 ## **Phase 1 — Foundation**
 
 * [x] Scaffold package with **react-native-builder-bob** (Fabric view).
-* [ ] Define **FaceAuthView** JS wrapper (`onSuccess`, `onFailure` with `DirectEventHandler`).
-* [ ] Setup **native view managers** (`FaceAuthViewManager`) for iOS + Android.
-* [ ] Render a **basic camera preview** in the native view.
+* [x] Define **FaceAuthView** JS wrapper (`onSuccess`, `onFailure` with `DirectEventHandler`).
+* [x] Setup **native view managers** (`FaceAuthViewManager`) for iOS + Android.
+* [x] Render a **basic camera preview** in the native view.
 
 🎯 Goal: Display live camera feed inside `<FaceAuth />`.
 

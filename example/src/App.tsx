@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Platform, PermissionsAndroid, View, StyleSheet } from 'react-native';
+import type { FaceAuthSuccessEvent } from 'rn-face-auth';
 import { FaceAuth } from 'rn-face-auth';
 
 export default function App() {
@@ -18,9 +19,17 @@ export default function App() {
       setGranted(true);
     }
   }, []);
+
   return (
     <View style={styles.container}>
-      {granted && <FaceAuth style={styles.box} />}
+      {granted && (
+        <FaceAuth
+          style={styles.box}
+          onSuccess={(event: FaceAuthSuccessEvent) => {
+            console.log('Face recognized with data:', event);
+          }}
+        />
+      )}
     </View>
   );
 }
@@ -33,7 +42,8 @@ const styles = StyleSheet.create({
   },
   box: {
     width: 400,
-    height: 600,
-    marginVertical: 20,
+    flex: 1,
+    minHeight: 600,
+    margin: 20,
   },
 });
