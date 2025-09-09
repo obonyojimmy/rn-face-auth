@@ -10,8 +10,7 @@ import com.facebook.react.viewmanagers.RnFaceAuthViewManagerInterface
 import com.facebook.react.viewmanagers.RnFaceAuthViewManagerDelegate
 
 @ReactModule(name = RnFaceAuthViewManager.NAME)
-class RnFaceAuthViewManager : SimpleViewManager<RnFaceAuthView>(),
-  RnFaceAuthViewManagerInterface<RnFaceAuthView> {
+class RnFaceAuthViewManager : SimpleViewManager<RnFaceAuthView>(), RnFaceAuthViewManagerInterface<RnFaceAuthView> {
   private val mDelegate: ViewManagerDelegate<RnFaceAuthView>
 
   init {

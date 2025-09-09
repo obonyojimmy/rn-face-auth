@@ -34,6 +34,7 @@ class RnFaceAuthView(context: Context) : FrameLayout(context), SurfaceHolder.Cal
     private var height: Int = 0
     private var faceDetector: FaceDetector? = null
     private val faceOverlay = FaceOverlayView(context)
+    private var isProcessing = false
 
     //private val executor = Executors.newSingleThreadExecutor()
 
@@ -75,8 +76,12 @@ class RnFaceAuthView(context: Context) : FrameLayout(context), SurfaceHolder.Cal
             sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION) ?: 0
 
             // Pick a reasonable preview size (first available or fallback)
-            previewSize = map?.getOutputSizes(SurfaceHolder::class.java)?.firstOrNull()
+            val sizes = map?.getOutputSizes(SurfaceHolder::class.java)
+            previewSize = sizes?.filter { it.width >= 640 && it.height >= 480 }
+                ?.minByOrNull { it.width * it.height }
                 ?: android.util.Size(640, 480)
+            //previewSize = map?.getOutputSizes(SurfaceHolder::class.java)?.firstOrNull()
+            //    ?: android.util.Size(640, 480)
 
             // Apply preview size to SurfaceHolder
             holder.setFixedSize(previewSize!!.width, previewSize!!.height)
@@ -124,6 +129,7 @@ class RnFaceAuthView(context: Context) : FrameLayout(context), SurfaceHolder.Cal
         captureSession?.close()
         cameraDevice?.close()
         imageReader?.close()
+        faceDetector?.close()
     }
 
     private fun startPreview(holder: SurfaceHolder) {
@@ -188,7 +194,8 @@ class RnFaceAuthView(context: Context) : FrameLayout(context), SurfaceHolder.Cal
     }
 
     private fun processImage(mediaImage: android.media.Image) {
-        
+        if (isProcessing) return
+        isProcessing = true
         val inputImage = InputImage.fromMediaImage(mediaImage, adjustedRotation)
 
         //Log.d("MLKit", "Processing image for face detection...")
@@ -224,6 +231,9 @@ class RnFaceAuthView(context: Context) : FrameLayout(context), SurfaceHolder.Cal
             }
             .addOnFailureListener { e ->
                 //Log.e("FaceAuthView", "Detection error: ${e.message}")
+            }
+            .addOnCompleteListener {
+                isProcessing = false
             }
     }
 }
